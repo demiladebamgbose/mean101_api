@@ -33,8 +33,13 @@ noteController.viewNotes = function(req, res){
 	});
 };
 
-
-
-
+noteController.findNote = function(req, res){
+	Note.find({title: req.body.title}, function(err, note){
+		if(err){
+			return res.json(err);
+		}
+		return res.json(note);
+	});
+};
 
 module.exports = noteController;
