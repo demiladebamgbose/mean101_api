@@ -8,8 +8,12 @@ module.exports = function(router){
 		.post(noteController.addNote);
 	router.route('/all')
 	  .get(noteController.viewNotes);
-	  router.route('/searchByTitle')
+	router.route('/note/:title')
 	  .get(noteController.findNote);
+	router.route('/update/:title')
+		.put(noteController.updateNote);
+	router.route('/delete/:title')
+		.delete(noteController.deleteNote);
 };
 
 

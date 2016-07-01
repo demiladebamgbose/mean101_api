@@ -34,12 +34,48 @@ noteController.viewNotes = function(req, res){
 };
 
 noteController.findNote = function(req, res){
-	Note.find({title: req.body.title}, function(err, note){
+	
+	Note.find({title: req.params.title}, function(err, note){
+		console.log('finder');
 		if(err){
 			return res.json(err);
 		}
+		console.log(note);
 		return res.json(note);
 	});
 };
 
+noteController.updateNote = function(req, res){
+	Note.findOne({title: req.params.title}, function(err, title){
+		if(title){
+			Note.update({title: req.params.title}, req.body, function(err, note){
+				if(err){
+					res.json(err);
+				}
+				console.log('update');
+				noteController.findNote(req,res);
+			});
+		}
+		else{
+			res.json({
+				success: false,
+				message: 'note not found'
+			});
+		}
+	});
+};
+
+noteController.deleteNote = function(req, res){
+	Note.remove({title: req.params.title},function(err, note){
+		if(err){
+			res.json(err);
+		}
+		else{
+			res.json({
+				success: true,
+				message: 'note deleted'
+			});
+		}
+	});
+};
 module.exports = noteController;
