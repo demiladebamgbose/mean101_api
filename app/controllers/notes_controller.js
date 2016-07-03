@@ -24,52 +24,52 @@ noteController.addNote = function(req, res){
 
 
 noteController.viewNotes = function(req, res){
-	Note.find({}).exec(function(err, notes){
-		if(err){
-			return res.json(err);
-		}
-		return res.json(notes);
-	});
+  Note.find({}).exec(function(err, notes){
+    if(err){
+      return res.json(err);
+    }
+    return res.json(notes);
+  });
 };
 
 noteController.findNote = function(req, res){
-	
-	Note.find({title: req.params.title}, function(err, note){
-		if(err){
-			return res.json(err);
-		}		return res.json(note);
-	});
+  Note.find({title: req.params.title}, function(err, note){
+    if(err){
+      return res.json(err);
+		}
+    return res.json(note);
+  });
 };
 
 noteController.updateNote = function(req, res){
-	Note.findOne({title: req.params.title}, function(err, title){
-		if(title){
-			Note.update({title: req.params.title}, req.body, function(err, note){
-				if(err){
-					res.json(err);
-				}
-				console.log('update');
-				noteController.findNote(req,res);
-			});
-		}
-		else{
-			res.json({
-				success: false,
-				message: 'note not found'
-			});
-		}
-	});
+  Note.findOne({title: req.params.title}, function(err, title){
+    if(title){
+      Note.update({title: req.params.title}, req.body, function(err, note){
+      if(err){
+        res.json(err);
+      }
+      console.log('update');
+      noteController.findNote(req,res);
+      });
+    }
+    else{
+      res.json({
+        success: false,
+        message: 'note not found'
+      });
+    }
+  });
 };
 
 noteController.deleteNote = function(req, res){
-	Note.remove({title: req.params.title},function(err, note){
-		if(err){
-			res.json(err);
-		}
-		else{
-			res.json({
-				success: true,
-				message: 'note deleted'
+  Note.remove({title: req.params.title},function(err, note){
+    if(err){
+      res.json(err);
+    }
+    else{
+      res.json({
+        success: true,
+        message: 'note deleted'
 			});
 		}
 	});
