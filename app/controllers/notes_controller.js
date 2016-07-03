@@ -24,7 +24,6 @@ noteController.addNote = function(req, res){
 
 
 noteController.viewNotes = function(req, res){
-	console.log('in');
 	Note.find({}).exec(function(err, notes){
 		if(err){
 			return res.json(err);
@@ -36,12 +35,9 @@ noteController.viewNotes = function(req, res){
 noteController.findNote = function(req, res){
 	
 	Note.find({title: req.params.title}, function(err, note){
-		console.log('finder');
 		if(err){
 			return res.json(err);
-		}
-		console.log(note);
-		return res.json(note);
+		}		return res.json(note);
 	});
 };
 
