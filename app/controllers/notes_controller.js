@@ -70,8 +70,8 @@ noteController.deleteNote = function(req, res){
       res.json({
         success: true,
         message: 'note deleted'
-			});
-		}
-	});
+      });
+    }
+  });
 };
 module.exports = noteController;
